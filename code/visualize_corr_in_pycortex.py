@@ -6,9 +6,6 @@ import numpy as np
 # from save_3d_views import *
 import argparse
 
-
-
-
 def load_data(
         model,
         layer="",
@@ -20,11 +17,6 @@ def load_data(
 ):
     if task is not "":
         model = model + "_" + task
-    if "ev" in model:
-        r = np.load(
-            "../outputs/consistency/explained_variance_subj{}_TR{}.npy".format(subj, TR)
-        )
-        return r
     if measure == "corr":
         corrs = pickle.load(
             open(
@@ -147,28 +139,6 @@ if __name__ == "__main__":
     }
 
     volumes = {
-        # "img-conv1": make_volume(subj=args.subj, model="convnet", layer="conv1", mask_with_significance=args.mask_sig),
-        # "img-conv2": make_volume(subj=args.subj, model="convnet", layer="conv2", mask_with_significance=args.mask_sig),
-        # "img-conv3": make_volume(subj=args.subj, model="convnet", layer="conv3", mask_with_significance=args.mask_sig),
-        # "img-conv4": make_volume(subj=args.subj, model="convnet", layer="conv4", mask_with_significance=args.mask_sig),
-        # "img-conv5": make_volume(subj=args.subj, model="convnet", layer="conv5", mask_with_significance=args.mask_sig),
-        # "img-fc6": make_volume(subj=args.subj, model="convnet", layer="fc6", mask_with_significance=args.mask_sig),
-        # "img-fc7": make_volume(subj=args.subj, model="convnet", layer="fc7", mask_with_significance=args.mask_sig),
-        # "sc-conv1": make_volume(subj=args.subj, model="scenenet", layer="conv1", mask_with_significance=args.mask_sig),
-        # 'sc-block1': make_volume(subj=args.subj, model='scenenet', layer='block1', mask_with_significance=args.mask_sig),
-        # 'sc-block2': make_volume(subj=args.subj, model='scenenet', layer='block2', mask_with_significance=args.mask_sig),
-        # 'sc-block3': make_volume(subj=args.subj, model='scenenet', layer='block3', mask_with_significance=args.mask_sig),
-        # 'sc-block4': make_volume(subj=args.subj, model='scenenet', layer='block4', mask_with_significance=args.mask_sig),
-        # 'sc-avgpool': make_volume(subj=args.subj, model='scenenet', layer='avgpool', mask_with_significance=args.mask_sig),
-        # 'sc-fc': make_volume(subj=args.subj, model='scenenet', layer='fc', mask_with_significance=args.mask_sig),
-        # "surface-normal-latent": make_volume(subj=args.subj, model="surface_normal_latent"),
-        # "surface-normal-subsample": make_volume(subj=args.subj, model="surface_normal_subsample"),
-        # 'pic2vec-8': make_volume(subj=args.subj, model='pic2vec', layer='8'),
-        # 'pic2vec-50': make_volume(subj=args.subj, model='pic2vec', layer='50'),
-        # 'pic2vec-200': make_volume(subj=args.subj, model='pic2vec', layer='200'),
-        # 'Fasttext': make_volume(subj=args.subj, model='fasttext', mask_with_significance=args.mask_sig),
-        # 'fasttext-ImageNet': make_volume(subj=args.subj, model='fasttext', dataset='ImageNet'),
-        # 'fasttext-SUN': make_volume(subj=args.subj, model='fasttext', dataset='SUN'),
         "Curvature": make_volume(subj=args.subj, model="taskrepr", task="curvature",
                                  mask_with_significance=args.mask_sig),
         "2D Edges": make_volume(subj=args.subj, model="taskrepr", task="edge2d", mask_with_significance=args.mask_sig),
@@ -206,18 +176,14 @@ if __name__ == "__main__":
         "Inpainting Whole": make_volume(subj=args.subj, model="taskrepr", task="inpainting_whole",
                                         mask_with_significance=args.mask_sig),
         "Jigsaw": make_volume(subj=args.subj, model="taskrepr", task="jigsaw", mask_with_significance=args.mask_sig),
+        # "Taskrepr model comparison": model_selection(subj=args.subj, model_dict=taskrepr_dict),
 
-        # "Response": make_volume(subj=args.subj, model="response", ),
-        # "RT": make_volume(subj=args.subj, model="RT", ),
-        "Taskrepr model comparison": model_selection(subj=args.subj, model_dict=taskrepr_dict),
-        # 'explained-variance-3':make_volume(subj=args.subj, model='ev', TR=3),
-        # 'explained-variance-4':make_volume(subj=args.subj, model='ev', TR=4)
     }
     import cortex
 
     if args.make_viewer:
         viewer_path = '../websites/images/subj{}'.format(args.subj)
-        cortex.webgl.make_static(outpath=viewer_path, data=volumes, template = '../website/template.html', recache=True)
+        cortex.webgl.make_static(outpath=viewer_path, data=volumes, template = '../website/brain_viewer/template.html', recache=True)
 
     else:
         cortex.webgl.show(data=volumes, autoclose=False, port=subjport)
