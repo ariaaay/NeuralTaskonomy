@@ -19,7 +19,6 @@ def compute_adjust_p(
     model,
     feature="",
     subj=None,
-    version=11,
     TR="TRavg",
     whole_brain=False,
     correction="bonferroni",
@@ -28,8 +27,8 @@ def compute_adjust_p(
         out = pickle.load(
             open(
                 glob(
-                    "../outputs/encoding_results_v{}/subj{}/corr_whole_brain_{}_{}_*{}.p".format(
-                        version, subj, model, feature, TR
+                    "../outputs/encoding_results/subj{}/corr_whole_brain_{}_{}_*{}.p".format(
+                        subj, model, feature, TR
                     )
                 )[0],
                 "rb",
@@ -47,8 +46,8 @@ def compute_adjust_p(
         out = pickle.load(
             open(
                 glob(
-                    "../outputs/encoding_results_v{}/subj{}/corr_{}_{}_*{}.p".format(
-                        version, subj, model, feature, TR
+                    "../outputs/encoding_results/subj{}/corr_{}_{}_*{}.p".format(
+                        subj, model, feature, TR
                     )
                 )[0],
                 "rb",

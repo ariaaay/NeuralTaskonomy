@@ -199,14 +199,11 @@ if __name__ == "__main__":
     parser.add_argument("--point_and_violin_plot", action="store_true", default=False)
     parser.add_argument("--no_saving", action="store_true", default=False)
     parser.add_argument("--plot_all_subjects", action="store_true", default=False)
-    parser.add_argument("--version", type=int, default=11)
 
     args = parser.parse_args()
 
-    version = args.version
-
-    inpath = "../outputs/encoding_results_v{}/subj{}".format(version, args.subj)
-    outpath = "../figures/encoding_models_v{}/subj{}/".format(version, args.subj)
+    inpath = "../outputs/encoding_results/subj{}".format(args.subj)
+    outpath = "../figures/encoding_models/subj{}/".format(args.subj)
     if not os.path.isdir(outpath):
         os.makedirs(outpath)
 
@@ -413,14 +410,14 @@ if __name__ == "__main__":
 
     if args.plot_all_subjects:
         # assume all df are created
-        outpath = "../figures/encoding_models_v{}/all/".format(version)
+        outpath = "../figures/encoding_models/all/"
         if not os.path.isdir(outpath):
             os.makedirs(outpath)
 
         df_list = []
         for i in range(3):
             try:
-                inpath = "../outputs/encoding_results_v{}/subj{}".format(version, i + 1)
+                inpath = "../outputs/encoding_results/subj{}".format(i + 1)
                 df = pd.read_csv(inpath + "/encoding_df.csv")
             except FileNotFoundError:
                 "Subject {} not found. Please load dataframe first".format(i + i)
@@ -429,7 +426,7 @@ if __name__ == "__main__":
             df_list.append(df)
         df_all = pd.concat(df_list)
         df_all.to_csv(
-            "../outputs/encoding_results_v{}/all/encoding_df.csv".format(version)
+            "../outputs/encoding_results/all/encoding_df.csv"
         )
 
         grid = sns.FacetGrid(

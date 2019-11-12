@@ -69,12 +69,12 @@ task_label = {
 node_label = [task_label[v] for v in task_label.keys()]
 
 
-def get_voxels(model_list, subj, TR="_TRavg", ROI=False, version=11):
+def get_voxels(model_list, subj, TR="_TRavg", ROI=False):
     datamat = list()
     for l in model_list:
         if not ROI:
             data = load_data(
-                'taskrepr', task=l, subj=subj, TR=TR, measure="corr", version=version
+                'taskrepr', task=l, subj=subj, TR=TR, measure="corr",
             )
         else:
             print("Not Implemented")
@@ -96,7 +96,7 @@ def get_sig_mask(model_list, correction, alpha, subj):
     return maskmat
 
 
-def load_prediction(model, task, subj, TR="_TRavg", version=11, ROI=False):
+def load_prediction(model, task, subj, TR="_TRavg", ROI=False):
     import pickle
 
     if ROI:
@@ -105,8 +105,8 @@ def load_prediction(model, task, subj, TR="_TRavg", version=11, ROI=False):
     else:
         preds = pickle.load(
             open(
-                "../outputs/encoding_results_v{}/subj{}/pred_whole_brain_{}_{}_{}.p".format(
-                    version, subj, model, task, TR
+                "../outputs/encoding_results/subj{}/pred_whole_brain_{}_{}_{}.p".format(
+                    subj, model, task, TR
                 ),
                 "rb",
             )
@@ -114,7 +114,7 @@ def load_prediction(model, task, subj, TR="_TRavg", version=11, ROI=False):
         return preds[0]
 
 
-def correlate_pairwise_prediction(model, feature_list, subj, TR="_TRavg", version=11):
+def correlate_pairwise_prediction(model, feature_list, subj, TR="_TRavg"):
     save_path = "../outputs/pred_corr/task_pred_correlation_subj{}.npy".format(subj)
     try:
         corrmat = np.load(save_path)
@@ -122,11 +122,11 @@ def correlate_pairwise_prediction(model, feature_list, subj, TR="_TRavg", versio
         corrmat = np.ones((len(feature_list), len(feature_list)))
         for i in tqdm(range(len(feature_list) - 1)):
             pred1 = load_prediction(
-                model, task=feature_list[i], subj=subj, TR=TR, version=version
+                model, task=feature_list[i], subj=subj, TR=TR
             )
             for j in tqdm(range(i + 1, len(feature_list))):
                 pred2 = load_prediction(
-                    model, task=feature_list[j], subj=subj, TR=TR, version=version
+                    model, task=feature_list[j], subj=subj, TR=TR
                 )
                 corr = columnwise_avg_corr(pred1, pred2)
 
