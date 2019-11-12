@@ -182,7 +182,7 @@ if __name__ == "__main__":
     import cortex
 
     if args.make_viewer:
-        viewer_path = '../websites/images/subj{}'.format(args.subj)
+        viewer_path = '../website/brain_viewer/src/subj{}'.format(args.subj)
         cortex.webgl.make_static(outpath=viewer_path, data=volumes, template = '../website/brain_viewer/template.html', recache=True)
 
     else:
