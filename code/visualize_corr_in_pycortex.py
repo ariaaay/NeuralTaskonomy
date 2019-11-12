@@ -217,7 +217,7 @@ if __name__ == "__main__":
 
     if args.make_viewer:
         viewer_path = '../websites/images/subj{}'.format(args.subj)
-        cortex.webgl.make_static(outpath=viewer_path, data=volumes, recache=True)
+        cortex.webgl.make_static(outpath=viewer_path, data=volumes, template = '../website/template.html', recache=True)
 
     else:
         cortex.webgl.show(data=volumes, autoclose=False, port=subjport)
