@@ -117,6 +117,7 @@ if __name__ == "__main__":
         "--subj", type=str, default="1", help="specify which subject to build model on"
     )
     parser.add_argument("--mask_sig", default=False, action="store_true")
+    parser.add_argument("--make_viewer", default=False, action="store_true")
     args = parser.parse_args()
     
     subjport = int("1111{}".format(args.subj))
@@ -197,7 +198,14 @@ if __name__ == "__main__":
         # 'explained-variance-4':make_volume(subj=args.subj, model='ev', TR=4)
     }
     import cortex
-    cortex.webgl.show(data=volumes, autoclose=False, port=subjport)
+
+    if args.make_viewer:
+        viewer_path = '../websites/images/subj_{}.html'.format(args.subj)
+        cortex.webgl.make_static(outpath=viewer_path, data=volumes, recache=True)
+
+    else:
+        cortex.webgl.show(data=volumes, autoclose=False, port=subjport)
+
 
     import pdb
 
