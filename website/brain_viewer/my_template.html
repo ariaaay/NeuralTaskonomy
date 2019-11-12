@@ -1,3 +1,5 @@
+{% autoescape None %}
+
 <!doctype html>
 <html>
 <title>{{ title }}</title>
@@ -6,13 +8,11 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <link rel="stylesheet" href="resources/css/jquery-ui.min.css" type='text/css' />
 <link rel="stylesheet" href="resources/css/w2ui-1.4.2.min.css" type='text/css' />
-<link rel="stylesheet" href="resources/css/select2-4.0.3.min.css" type='text/css' />
 
 <script type='text/javascript' src='resources/js/jquery-2.1.1.min.js'></script>
 <script type='text/javascript' src='resources/js/jquery-ui.min.js'></script>
 <script type='text/javascript' src='resources/js/jquery.ddslick.min.js'></script>
 <script type="text/javascript" src="resources/js/dat.gui.min.js"></script>
-<script type="text/javascript" src="resources/js/select2-4.0.3.min.js"></script>
 
 <script type='text/javascript' src="resources/js/three.js"></script>
 <script type='text/javascript' src="resources/js/OculusRiftEffect.js"></script>
@@ -55,55 +55,12 @@
 
 <div id='main'>
 	<div id='ctmload' class='loadmsg'><img src='resources/css/images/loading.gif'>Loading brain...</div>
-	<div id='dataopts' class='dataset-opts'>
-		<div id='dataname' class='opt-header'></div>
+	<div id='dataopts'>
+		<div id='dataname'></div>
 		<div id='dataset_category' class='opt_category'>
+			<p class='opt_label'>Datasets</p>
 			<ul id='datasets'>
 			</ul>
-		</div>
-	</div>
-	<div id='helpmenu' class='helpmenu'>
-	</div>
-	<div id="picked_value">0.0000</div>
-	<div id="mouseover_value">0.0000</div>
-	<div id="colorlegend">
-		<div id="vlims-1d">
-			<div id="vmin-container">
-				<input id="vmin-input"></input>
-				<div id="vmin"></div>
-			</div>
-			<div id="vmax-container">
-				<input id="vmax-input"></input>
-				<div id="vmax"></div>
-			</div>
-		</div>
-		<div id="vlims-2d">
-			<div id="xd-vmin-container">
-				<input id="xd-vmin-input"></input>
-				<div id="xd-vmin"></div>
-			</div>
-			<div id="xd-vmax-container">
-				<input id="xd-vmax-input"></input>
-				<div id="xd-vmax"></div>
-			</div>
-			<div id="yd-vmin-container">
-				<input id="yd-vmin-input"></input>
-				<div id="yd-vmin"></div>
-			</div>
-			<div id="yd-vmax-container">
-				<input id="yd-vmax-input"></input>
-				<div id="yd-vmax"></div>
-			</div>
-		</div>
-		<div id='colorlegend-colors'>
-			<select class="colorlegend-select">
-				{% for name, img in colormaps %}
-					<option value="{{name}}">{{name}}</option>
-				{% end %}
-			</select>
-			<div id='colorlegend-colorbar-container'>
-				<img id='colorlegend-colorbar' src='{{colormaps[0][1]}}'/>
-			</div>
 		</div>
 	</div>
 	<canvas id='brain'></canvas>
@@ -131,6 +88,37 @@
 
 <link rel="stylesheet" href="resources/css/jsplot.css" type='text/css' />
 <link rel="stylesheet" href="resources/css/mriview.css" type='text/css' />
+    
+<style type = text/css>
+.dg li:not(.folder) {
+    background: white;
+    border-bottom: 1px solid #2c2c2c;
+    color: black;
+    text-shadow: none;
+}
+.dg li:not(.folder):hover {
+    background: #d2cfcf;
+}
+.dg .cr.number input[type=text] {
+    color: black;
+    background: #c3c3c3;
+}
+.dg .cr.function:hover, .dg .cr.boolean:hover {
+    background: #d2cfcf;
+}
+.dg .cr.number input[type=text] :hover {
+    color: black;
+    background: #c3c3c3;
+}
+.dg .c .slider-fg{
+    background-color:red
+}
+.dg .c .slider:hover .slider-fg {
+    background: red;
+}
+
+</style>
+    
 <script type='text/javascript'>
 	var validator = new function() {
 		var gl;
@@ -154,7 +142,7 @@
 	};
 
 	{% block jsinit %}
-	    var viewer, subjects, datasets, figure, sock, viewopts;
+        var viewer, subjects, datasets, figure, sock, viewopts;
 	{% end %}
 
 	var colormaps = {};
@@ -168,17 +156,18 @@
 			$("#ctmload").html("<p>Sorry, your computer does not have the minimum number of texture units :(</p><p>Try upgrading your drivers and/or your browser</p>").show();
 		} else {
 			{% block onload %}
-			    viewopts = {{viewopts}};
-                subjects = {{subjects}};
-                for (var name in subjects) {
-                    subjects[name] = new mriview.Surface(subjects[name]);
-                }
+            viewopts = {{viewopts}};
+		
+	        subjects = {{subjects}};
+		for (var name in subjects) {
+			subjects[name] = new mriview.Surface(subjects[name]);
+		}
 
-                figure = new jsplot.W2Figure();
-                viewer = figure.add(mriview.Viewer, "main", true);
+		figure = new jsplot.W2Figure();
+		viewer = figure.add(mriview.Viewer, "main", true);
 
-                dataviews = dataset.fromJSON({{data}});
-                viewer.addData(dataviews);
+		dataviews = dataset.fromJSON({{data}});
+		viewer.addData(dataviews);
 			{% end %}
 		}
 
@@ -188,6 +177,13 @@
 </head>
 <body>
 <div id='dataload' class='loadmsg'><img src='resources/css/images/loading.gif'>Loading data...</div>
+<!--<p style="color:white">-->
+<!--	Click and drag brain to rotate. Scroll to zoom. <br>-->
+<!--	Press <mark>'I'</mark> to inflate brain. <br>-->
+<!--	Press <mark>'F'</mark> to flatten the brain for cortical views. <br>-->
+<!--	Press <mark>'L'</mark> to show or hide region of interest labels. <br>-->
+<!--	Click on task labels on the top left corners to switch between tasks.-->
+<!--</p>-->
 {% block extrahtml %}
 {% end %}
 
