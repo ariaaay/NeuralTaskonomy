@@ -188,7 +188,7 @@ def fit_encoding_model(
     if cv:
         print("Running cross validation")
 
-    outpath = "../outputs/encoding_results_v11/subj{}/".format(subj)
+    outpath = "../outputs/encoding_results/subj{}/".format(subj)
     if not os.path.isdir(outpath):
         os.makedirs(outpath)
 

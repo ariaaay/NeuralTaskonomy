@@ -12,7 +12,7 @@ from util.model_config import *
 from util.util import *
 
 perm_dir = "../outputs/permutation_results"
-acc_dir = "../outputs/encoding_results_v11"
+acc_dir = "../outputs/encoding_results"
 nrep = 5000
 
 

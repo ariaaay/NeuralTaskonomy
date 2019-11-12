@@ -15,7 +15,7 @@ if __name__ == "__main__":
     parser.add_argument("--subj", type=int, default=1)
     args = parser.parse_args()
     tasks = [task_label[t] for t in taskrepr_features]
-    df = pd.read_csv("../outputs/encoding_results_v11/all/encoding_df.csv")
+    df = pd.read_csv("../outputs/encoding_results/all/encoding_df.csv")
     subj_corr = list()
     for i in np.arange(2)+1:
         subi_df = df[df['Subject'] == i]
