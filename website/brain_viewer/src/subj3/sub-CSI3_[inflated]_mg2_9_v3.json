@@ -1,1 +1,1 @@
-{"rois": "sub-CSI3_[inflated]_mg2_9_v3.svg", "flatlims": [[357.1673583984375, 165.67288208007812], [742.65478515625, 331.34576416015625]], "data": "sub-CSI3_[inflated]_mg2_9_v3.ctm", "materials": [], "offsets": [0, 2885670], "names": ["inflated"]}
+{"names": ["inflated"], "materials": [], "flatlims": [[357.1673583984375, 165.67288208007812], [742.65478515625, 331.34576416015625]], "offsets": [0, 2885670], "data": "sub-CSI3_[inflated]_mg2_9_v3.ctm", "rois": "sub-CSI3_[inflated]_mg2_9_v3.svg"}
