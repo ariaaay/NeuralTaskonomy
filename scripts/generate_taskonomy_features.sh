@@ -1,10 +1,9 @@
 #!/bin/sh
-cd /home/yuanw3/taskonomy/taskbank
-source ~/taskonomy/venv/bin/activate
+source ../taskonomy/venv/bin/activate
 set -eu
 
-STIMULI_DIR="/home/yuanw3/ObjectEmbeddingSpace/BOLD5000_Stimuli/Scene_Stimuli/Presented_Stimuli/"
-OUT_DIR="/home/yuanw3/ObjectEmbeddingSpace/genStimuli/"
+STIMULI_DIR="/PATH_TO_BOLD5000/BOLD5000_Stimuli/Scene_Stimuli/Presented_Stimuli/"
+OUT_DIR="genStimuli/"
 
 IMAGE_DATASET="COCO \
 	ImageNet \
@@ -56,7 +55,7 @@ for DIR in $IMAGE_DATASET; do
 		    fi
         	# echo "processing $imgfile for task $task"
         	if [ ! -e $target_DIR/$store_name ]; then
-			python /home/yuanw3/taskonomy/taskbank/tools/run_img_task.py --task $task --img $imgfile --store "$target_DIR/$store_name" --store-rep
+			python taskonomy/taskbank/tools/run_img_task.py --task $task --img $imgfile --store "$target_DIR/$store_name" --store-rep
 		fi
 		done
 	done
