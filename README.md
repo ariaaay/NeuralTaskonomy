@@ -12,9 +12,10 @@ You will also need to clone the [taskonomy](https://github.com/StanfordVL/taskon
 ```
 git clone https://github.com/StanfordVL/taskonomy/tree/master/taskbank)
 ```
+[BOLD5000](https://bold5000.github.io/) data and stimuli is available for download [here](https://bold5000.github.io/download.html).
 
-### Step 2: Install requirement
-Requirements.txt contains the necessary package for to run the code in this project.
+### Step 2: Install requirements
+[Requirements.txt](https://github.com/ariaaay/NeuralTaskonomy/blob/master/requirements.txt) contains the necessary package for to run the code in this project.
 ```
 python3 -m venv venv
 source venv/bin/activate
@@ -22,7 +23,7 @@ pip install -r requirement.txt --no-index
 ```
 Please also follow [installation page](https://github.com/StanfordVL/taskonomy/tree/master/taskbank#installation) to install another environment to use taskonomy model bank.
 
-### Step 3: Generate model activate from each task specific models for all BOLD5000 Images
+### Step 3: Generate model activations from each task specific models for all BOLD5000 Images
 ```
 sh scripts/generate_taskonomy_features.sh
 ```
@@ -33,7 +34,7 @@ sh scripts/taskrepr_ROI_train.sh
 sh scripts/taskrepr_wholebrain.sh
 ```
 
-### To run permutatation test on ROI and whole brain data
+### To run permutatation tests on ROI and whole brain data
 ```
 sh scripts/taskrepr_ROI_permutation.sh
 sh scripts/taskrepr_wholebrain_permutation.sh
