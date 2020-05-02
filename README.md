@@ -10,7 +10,7 @@ cd NeuralTaskonomy
 ```
 You will also need to clone the [taskonomy](https://github.com/StanfordVL/taskonomy/tree/master/taskbank) model bank.
 ```
-git clone https://github.com/StanfordVL/taskonomy/tree/master/taskbank)
+git clone https://github.com/StanfordVL/taskonomy/tree/master/taskbank
 ```
 [BOLD5000](https://bold5000.github.io/) data and stimuli is available for download [here](https://bold5000.github.io/download.html).
 
@@ -51,12 +51,10 @@ python run_significance_test.py --subj $subj --whole_brain --use_empirical_p
 
 To generate task similarity matrix:
 ```
-cd code
 python make_task_matrix.py --method "cosine" --use_mask_corr --empirical
 ```
 
 To generate task trees:
 ```
-cd code
 python make_task_tree.py --subj $subj --method masked_corr
 ```
