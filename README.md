@@ -1,6 +1,6 @@
 # NeuralTaskonomy
 ## Inferring the Similarity of Task-Derived Representations from Brain Activity
-This repository contains code for Neural Taskonomy paper, accepted to NeurIPS 2019.
+This repository contains code for the Neural Taskonomy paper, accepted to NeurIPS 2019.
 
 ## Setup and Installation
 ### Step 1: Clone the code from Github
