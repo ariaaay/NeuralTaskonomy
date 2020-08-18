@@ -14,6 +14,8 @@ where Ue^{1/2}V' is the singular-value decomposition of X'. Since (e + lI) is a
 diagonal matrix, its inverse can be computed efficiently simply by taking the
 reciprocal of the diagonal elements. Then, (X'V)'X'y is a vector; so it can be
 multiplied by (e + lI)^{-1} just by scalar multiplication.
+
+Code modifed from the following source: https://github.com/jayanthkoushik/torch-gel
 """
 
 import torch
